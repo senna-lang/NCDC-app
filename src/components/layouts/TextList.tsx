@@ -1,7 +1,7 @@
 "use client";
 import { useTextList } from "@/common/hooks/useTextList";
 import { TextContent } from "@/common/types/types";
-import TitleCard from "../TitleCard";
+import TitleCard from "../../features/TitleCard";
 
 const TextList = () => {
   const { textList } = useTextList();

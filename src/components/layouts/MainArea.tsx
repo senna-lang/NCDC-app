@@ -1,8 +1,8 @@
 "use client";
 import { useTextDetail } from "@/common/hooks/useTextDetail";
 import { useStore } from "@/common/store/store";
-import TextTitle from "../TextTitle";
-import TextContent from "../TextContent";
+import TextTitle from "../../features/TextTitle";
+import TextContent from "../../features/TextContent";
 import ContentEditButton from "../elements/ContentEditButton";
 import TitleEditButton from "../elements/TitleEditButton";
 
