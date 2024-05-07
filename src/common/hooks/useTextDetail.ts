@@ -1,12 +1,10 @@
 import useSWR, { Fetcher } from "swr";
 import useSWRMutation from "swr/mutation";
 import { useCallback } from "react";
-import { PatchFetcher, TextContent } from "../types/types";
+import { PatchFetcher, TextContent, TextDetail } from "../types/types";
 import { instance } from "../../lib/axiosClient";
 
-const url = "/content";
-
-const getFetcher: Fetcher<TextContent> = async (url: string) => {
+const getFetcher: Fetcher<TextDetail> = async (url: string) => {
   const response = await instance.get(url);
   return response.data;
 };
@@ -21,7 +19,7 @@ export const useTextDetail = (textId: number | null) => {
     isLoading,
     error,
     mutate,
-  } = useSWR(textId ? `${url}/${textId}` : null, getFetcher, {
+  } = useSWR(textId ? `/textDetail/${textId}` : null, getFetcher, {
     suspense: true,
   });
 
@@ -31,7 +29,7 @@ export const useTextDetail = (textId: number | null) => {
     trigger: detailTrigger,
     isMutating,
     error: mutateError,
-  } = useSWRMutation(textId ? `${url}/${textId}` : null, patchFetcher, {
+  } = useSWRMutation(textId ? `/updateText/${textId}` : null, patchFetcher, {
     onSuccess: revalidate,
   });
 

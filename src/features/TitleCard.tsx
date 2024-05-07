@@ -3,7 +3,6 @@
 import { useStore } from "@/common/store/store";
 import { useTextDetail } from "@/common/hooks/useTextDetail";
 import DeleteIcon from "../../public/icons/delete.svg";
-import axios from "axios";
 import { useTextList } from "@/common/hooks/useTextList";
 
 const TitleCard = ({
@@ -25,7 +24,7 @@ const TitleCard = ({
     ? "b-2 flex items-center border-b border-black p-4 font-semibold text-slate-500 duration-150 "
     : "b-2 flex cursor-pointer items-center border-b border-black p-4 font-semibold text-slate-500 duration-150 hover:rounded-md hover:border-white hover:bg-slate-300 hover:text-blue-500 ";
   const { textDetail } = useTextDetail(textId);
-  const { mutate } = useTextList();
+  const { mutate, deleteTrigger } = useTextList();
 
   const selectText = (id: number) => {
     if (contentEdit || titleEdit || sidebarEdit) {
@@ -33,8 +32,8 @@ const TitleCard = ({
     }
     try {
       updateTextId(id);
-      updateContent(textDetail.body);
-      updateTitle(textDetail.title);
+      updateContent(textDetail!.body);
+      updateTitle(textDetail!.title);
     } catch (err) {
       window.alert(
         "テキストデータの取得に失敗しました。しばらくしてからもう１度お試しください。",
@@ -45,7 +44,7 @@ const TitleCard = ({
 
   const deleteText = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3000/content/${id}`);
+      deleteTrigger(id);
       updateTextId(null);
       mutate();
     } catch (err) {

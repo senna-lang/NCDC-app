@@ -1,6 +1,6 @@
 "use client";
 import { useTextList } from "@/common/hooks/useTextList";
-import { TextContent } from "@/common/types/types";
+import type { TextList } from "@/common/types/types";
 import TitleCard from "../../features/TitleCard";
 
 const TextList = () => {
@@ -9,7 +9,7 @@ const TextList = () => {
   return (
     <div className="flex-grow overflow-y-auto">
       {textList ? (
-        textList.map((text: TextContent) => (
+        textList.map((text: TextList) => (
           <TitleCard textId={text.id} textTitle={text.title} key={text.id} />
         ))
       ) : (
