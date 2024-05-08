@@ -1,4 +1,3 @@
-"use client";
 import MainArea from "@/components/layouts/MainArea";
 import SideBar from "@/components/layouts/SideBar";
 

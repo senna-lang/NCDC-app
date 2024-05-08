@@ -2,7 +2,7 @@ import useSWR, { Fetcher } from "swr";
 import useSWRMutation from "swr/mutation";
 import { useCallback } from "react";
 import { PatchFetcher, TextContent, TextDetail } from "../types/types";
-import { instance } from "../../lib/axiosClient";
+import { instance } from "../lib/axiosClient";
 
 const getFetcher: Fetcher<TextDetail> = async (url: string) => {
   const response = await instance.get(url);

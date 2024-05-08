@@ -56,23 +56,21 @@ const TitleCard = ({
   };
 
   return (
-    <ul>
-      <li key={textId} className={style} onClick={() => selectText(textId)}>
-        <div className="flex w-full justify-between">
-          <span className=" inline-block">{textTitle}</span>
-          {sidebarEdit ? (
-            <button
-              className="mr-2 block cursor-pointer"
-              onClick={() => deleteText(textId)}
-            >
-              <DeleteIcon />
-            </button>
-          ) : (
-            <></>
-          )}
-        </div>
-      </li>
-    </ul>
+    <li key={textId} className={style} onClick={() => selectText(textId)}>
+      <div className="flex w-full justify-between">
+        <h2 className=" inline-block">{textTitle}</h2>
+        {sidebarEdit ? (
+          <button
+            className="mr-2 block cursor-pointer"
+            onClick={() => deleteText(textId)}
+          >
+            <DeleteIcon />
+          </button>
+        ) : (
+          <></>
+        )}
+      </div>
+    </li>
   );
 };
 

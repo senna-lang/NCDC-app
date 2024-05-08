@@ -31,7 +31,13 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "./jest-setup.ts",
+    "node_modules",
+    "out",
+    ".next",
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ],
   "exclude": [
     "node_modules"

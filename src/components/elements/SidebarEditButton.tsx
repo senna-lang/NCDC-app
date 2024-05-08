@@ -4,7 +4,6 @@ import { useStore } from "@/common/store/store";
 import AddIcon from "../../../public/icons/+.svg";
 import CheckIcon from "../../../public/icons/done.svg";
 import EditIcon from "../../../public//icons/edit.svg";
-import { instance } from "@/lib/axiosClient";
 import { useTextList } from "@/common/hooks/useTextList";
 
 const EditButton = () => {
@@ -19,7 +18,9 @@ const EditButton = () => {
       listTrigger(data);
     } catch (err) {
       console.log(err);
-      window.alert("テキストの作成に失敗しました。しばらくしてからもう１度お試しください。");
+      window.alert(
+        "テキストの作成に失敗しました。しばらくしてからもう１度お試しください。",
+      );
     }
   };
   return (

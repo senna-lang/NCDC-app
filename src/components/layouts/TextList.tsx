@@ -8,13 +8,15 @@ const TextList = () => {
 
   return (
     <div className="flex-grow overflow-y-auto">
-      {textList ? (
-        textList.map((text: TextList) => (
-          <TitleCard textId={text.id} textTitle={text.title} key={text.id} />
-        ))
-      ) : (
-        <></>
-      )}
+      <ul>
+        {textList ? (
+          textList.map((text: TextList) => (
+            <TitleCard textId={text.id} textTitle={text.title} key={text.id} />
+          ))
+        ) : (
+          <></>
+        )}
+      </ul>
     </div>
   );
 };
