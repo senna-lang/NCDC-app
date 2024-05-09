@@ -1,42 +1,43 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
+import useEvent from "@testing-library/user-event";
 import SideBar from "../components/layouts/SideBar";
 import SvgrMock from "../__mocks__/SvgrMock";
 import EditButton from "../components/elements/SidebarEditButton";
 import TitleCard from "@/features/TitleCard";
 
 describe("SideBarElements", () => {
-  test("ServiceNameをレンダリングする", () => {
+  test("ServiceNameのレンダリング", () => {
     render(<SideBar />);
-    const headingText = screen.getByText("ServiceName");
-    expect(headingText).toBeInTheDocument();
+    const headingTextElement = screen.getByText("ServiceName");
+    expect(headingTextElement).toBeInTheDocument();
   });
 
-  test("EditButtonをレンダリングする", () => {
+  test("EditButtonのレンダリング", () => {
     render(<EditButton />);
-    const editButton = screen.getByRole("button", {
+    const editButtonElement = screen.getByRole("button", {
       name: "Edit",
     });
-    expect(editButton).toBeInTheDocument();
+    expect(editButtonElement).toBeInTheDocument();
   });
 
   test("DoneButtonはレンダリングされていない", () => {
     render(<EditButton />);
-    const doneButton = screen.queryByRole("button", {
+    const doneButtonElement = screen.queryByRole("button", {
       name: "Done",
     });
-    expect(doneButton).not.toBeInTheDocument();
+    expect(doneButtonElement).not.toBeInTheDocument();
   });
 
   test("NewPageButtonはレンダリングされていない", () => {
     render(<EditButton />);
-    const doneButton = screen.queryByRole("button", {
+    const newPageButtonElement = screen.queryByRole("button", {
       name: "New page",
     });
-    expect(doneButton).not.toBeInTheDocument();
+    expect(newPageButtonElement).not.toBeInTheDocument();
   });
 
-  test("SVGコンポーネントをレンダリングする", () => {
+  test("SVGコンポーネントのレンダリング", () => {
     const { getByTestId } = render(
       <SvgrMock data-testid="svg-mock" width={100} height={100} />,
     );
@@ -72,5 +73,28 @@ describe("TextList", () => {
     render(<TitleCard textId={TextList[0].id} textTitle={TextList[0].title} />);
     const deleteButtonElement = screen.queryByRole("button");
     expect(deleteButtonElement).not.toBeInTheDocument();
+  });
+});
+
+describe("interactions", () => {
+  test("EditButtonをクリックすると編集モードのボタンがレンダリングされる", async () => {
+    const user = useEvent.setup();
+    const textData = { id: 1, title: "テスト1です" };
+    render(<EditButton />);
+    render(<TitleCard textId={textData.id} textTitle={textData.title} />);
+    const editButtonElement = screen.getByRole("button", {
+      name: "Edit",
+    });
+    await user.click(editButtonElement);
+    const doneButtonElement = screen.getByRole("button", {
+      name: "Done",
+    });
+    const newPageButtonElement = screen.getByRole("button", {
+      name: "New page",
+    });
+    const deleteButtonElement = screen.getByTestId("delete-button");
+    expect(deleteButtonElement).toBeInTheDocument();
+    expect(doneButtonElement).toBeInTheDocument();
+    expect(newPageButtonElement).toBeInTheDocument();
   });
 });

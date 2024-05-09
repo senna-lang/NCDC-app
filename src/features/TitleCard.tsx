@@ -63,6 +63,7 @@ const TitleCard = ({
           <button
             className="mr-2 block cursor-pointer"
             onClick={() => deleteText(textId)}
+            data-testid="delete-button"
           >
             <DeleteIcon />
           </button>

@@ -15,12 +15,14 @@ const TextContent = ({ textContent }: { textContent: string }) => {
               e.preventDefault();
               updateContent(e.target.value);
             }}
+            data-testid="editing-textarea"
           />
         ) : (
           <textarea
             disabled
             value={textContent}
             className=" mb-5 h-full w-full bg-white"
+            data-testid="default-textarea"
           />
         )}
       </div>
