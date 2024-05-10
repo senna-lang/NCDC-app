@@ -1,11 +1,13 @@
 import "@testing-library/jest-dom";
 
 import TextTitle from "@/features/TextTitle";
-import { render, screen } from "@testing-library/react";
+import { render, renderHook, screen } from "@testing-library/react";
 import useEvent from "@testing-library/user-event";
 import TitleEditButton from "@/components/elements/TitleEditButton";
 import TextContent from "@/features/TextContent";
 import ContentEditButton from "@/components/elements/ContentEditButton";
+import useSWR from "swr";
+
 
 describe("MainArea", () => {
   test("TextTitleのレンダリング", () => {
@@ -105,11 +107,20 @@ describe("interactions", () => {
     expect(saveButtonElement).toBeInTheDocument();
     expect(cancelButtonElement).toBeInTheDocument();
   });
-
-  test("textareaへの入力", async () => {
+ test("textareaへの入力", async () => {
     render(<TextContent textContent="テスト" />);
     const textareaElement = screen.getByTestId("editing-textarea");
     await user.type(textareaElement, "です。");
     expect(textareaElement).toHaveValue("テストです。");
   });
+
+  // test("セーブボタンをクリックすると編集モードを終了する。", async () => {
+  //   render(<ContentEditButton />);
+  //   render(<TextContent textContent="テストです。" />);
+  //   const saveButtonElement = screen.getByRole("button", {
+  //     name: "Save",
+  //   });
+  //   await user.click(saveButtonElement);
+  //   expect(saveButtonElement).not.toBeInTheDocument();
+  // });
 });

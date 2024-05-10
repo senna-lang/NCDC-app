@@ -3,7 +3,7 @@ import { useTextList } from "@/common/hooks/useTextList";
 import type { TextList } from "@/common/types/types";
 import TitleCard from "../../features/TitleCard";
 
-const TextList = () => {
+const TextListLayout = () => {
   const { textList } = useTextList();
 
   return (
@@ -21,4 +21,4 @@ const TextList = () => {
   );
 };
 
-export default TextList;
+export default TextListLayout;

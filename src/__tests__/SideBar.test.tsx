@@ -5,6 +5,8 @@ import SideBar from "../components/layouts/SideBar";
 import SvgrMock from "../__mocks__/SvgrMock";
 import EditButton from "../components/elements/SidebarEditButton";
 import TitleCard from "@/features/TitleCard";
+import TextTitle from "@/features/TextTitle";
+import TextListLayout from "@/components/layouts/TextList";
 
 describe("SideBarElements", () => {
   test("ServiceNameのレンダリング", () => {
@@ -53,6 +55,12 @@ describe("TextList", () => {
     { id: 3, title: "テスト3です" },
   ];
 
+  test("TextListのレンダリング", () => {
+    render(<TextListLayout />);
+    const ulElement = screen.getByRole("list");
+    expect(ulElement).toBeInTheDocument();
+  });
+
   test("TitleCardのレンダリング", async () => {
     TextList.map((text) => {
       render(
@@ -77,8 +85,8 @@ describe("TextList", () => {
 });
 
 describe("interactions", () => {
+  const user = useEvent.setup();
   test("EditButtonをクリックすると編集モードのボタンがレンダリングされる", async () => {
-    const user = useEvent.setup();
     const textData = { id: 1, title: "テスト1です" };
     render(<EditButton />);
     render(<TitleCard textId={textData.id} textTitle={textData.title} />);
@@ -96,5 +104,16 @@ describe("interactions", () => {
     expect(deleteButtonElement).toBeInTheDocument();
     expect(doneButtonElement).toBeInTheDocument();
     expect(newPageButtonElement).toBeInTheDocument();
+  });
+
+  test("TitleCardをクリックするとTextTitleがレンダリングされる。", async () => {
+    render(<TitleCard textId={1} textTitle="テスト1" />);
+    render(<TextTitle textTitle="テスト２" />);
+    const titleCardElement = screen.getByRole("listitem");
+    await user.click(titleCardElement);
+    const titleElement = screen.getByRole("heading", {
+      name: "テスト２",
+    });
+    expect(titleElement).toBeInTheDocument();
   });
 });
