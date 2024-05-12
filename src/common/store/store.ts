@@ -1,37 +1,42 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 type State = {
-  textId: number |null;
+  textId: number | null;
   title: string;
   content: string;
   sidebarEdit: boolean;
   titleEdit: boolean;
   contentEdit: boolean;
+  authorModal: boolean;
 };
 
 type Action = {
-  updateTextId: (textId: State['textId']) => void;
-  updateTitle: (title: State['title']) => void;
-  updateContent: (content: State['content']) => void;
-  toggleSidebarEdit: (sidebarEdit: State['sidebarEdit']) => void;
-  toggleTitleEdit: (titleEdit: State['titleEdit']) => void;
-  toggleContentEdit: (contentEdit: State['contentEdit']) => void;
+  updateTextId: (textId: State["textId"]) => void;
+  updateTitle: (title: State["title"]) => void;
+  updateContent: (content: State["content"]) => void;
+  toggleSidebarEdit: (sidebarEdit: State["sidebarEdit"]) => void;
+  toggleTitleEdit: (titleEdit: State["titleEdit"]) => void;
+  toggleContentEdit: (contentEdit: State["contentEdit"]) => void;
+  toggleAuthorModal: (contentEdit: State["authorModal"]) => void;
 };
 
-export const useStore = create<Action & State>(set => ({
+export const useStore = create<Action & State>((set) => ({
   textId: null,
-  title: '',
-  content: '',
+  title: "",
+  content: "",
   sidebarEdit: false,
   titleEdit: false,
   contentEdit: false,
-  updateTextId: newTextId => set(() => ({ textId: newTextId })),
-  updateTitle: newTitle => set(() => ({ title: newTitle })),
-  updateContent: newContent => set(() => ({ content: newContent })),
-  toggleSidebarEdit: toggleSidebarEdit =>
+  authorModal: false,
+  updateTextId: (newTextId) => set(() => ({ textId: newTextId })),
+  updateTitle: (newTitle) => set(() => ({ title: newTitle })),
+  updateContent: (newContent) => set(() => ({ content: newContent })),
+  toggleSidebarEdit: (toggleSidebarEdit) =>
     set(() => ({ sidebarEdit: toggleSidebarEdit })),
-  toggleTitleEdit: toggleTitleEdit =>
+  toggleTitleEdit: (toggleTitleEdit) =>
     set(() => ({ titleEdit: toggleTitleEdit })),
-  toggleContentEdit: toggleContentEdit =>
+  toggleContentEdit: (toggleContentEdit) =>
     set(() => ({ contentEdit: toggleContentEdit })),
+  toggleAuthorModal: (toggleAuthorModal) =>
+    set(() => ({ authorModal: toggleAuthorModal })),
 }));

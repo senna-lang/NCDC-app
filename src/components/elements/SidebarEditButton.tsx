@@ -6,12 +6,14 @@ import CheckIcon from "../../../public/icons/done.svg";
 import EditIcon from "../../../public//icons/edit.svg";
 import { useTextList } from "@/common/hooks/useTextList";
 
+
 const EditButton = () => {
-  const { sidebarEdit, toggleSidebarEdit } = useStore();
+  const { sidebarEdit, toggleSidebarEdit, toggleAuthorModal } = useStore();
   const { listTrigger } = useTextList();
   const data = {
     title: "タイトル",
     body: "コンテンツ",
+    author: 1,
   };
   const createText = () => {
     try {
@@ -31,7 +33,7 @@ const EditButton = () => {
             className=" border-blue-400"
             size="lg"
             variant="outline"
-            onClick={() => createText()}
+            onClick={() => toggleAuthorModal(true)}
           >
             <div className=" flex flex-col items-center">
               <AddIcon />
