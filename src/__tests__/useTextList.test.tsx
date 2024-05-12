@@ -11,14 +11,17 @@ const mockedData = [
   {
     id: 1,
     title: "テスト１",
+    body:'テスト１です。'
   },
   {
     is: 2,
     title: "テスト2",
+    body:'テスト２です。'
   },
   {
     is: 3,
     title: "テスト3",
+    body:'テスト３です。'
   },
 ];
 
