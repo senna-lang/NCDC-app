@@ -1,13 +1,12 @@
-export type TextContent = {
-  id: number;
-  title: string;
-  author: string;
-  body: string;
-};
-
 export type Author = {
   id: number;
   name: string;
+};
+export type TextContent = {
+  id: number;
+  title: string;
+  author: Author;
+  body: string;
 };
 
 export type TextList = Pick<TextContent, "id" | "title">;

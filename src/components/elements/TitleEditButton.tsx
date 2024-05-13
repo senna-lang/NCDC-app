@@ -12,14 +12,13 @@ const TitleEditButton = () => {
   const { detailTrigger } = useTextDetail(textId);
   const { mutate } = useTextList();
 
-
-  const data = {
-    title,
-  };
   const handleAppDate = async () => {
+    const data = {
+      title,
+    };
     try {
       await detailTrigger(data);
-      mutate()
+      mutate();
       toggleTitleEdit(false);
     } catch (err) {
       console.error(err);

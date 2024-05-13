@@ -50,7 +50,7 @@ describe("SideBarElements", () => {
 
 describe("TextList", () => {
   const TextList = [
-    { id: 1, title: "テスト1です" },
+    { id: 1, title: "テスト1です" ,},
     { id: 2, title: "テスト2です" },
     { id: 3, title: "テスト3です" },
   ];

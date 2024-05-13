@@ -2,7 +2,7 @@
 import { useStore } from "@/common/store/store";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import MultiSelect from "./MultiSelect";
+import Selector from "./Selector";
 import { useAuthor } from "@/common/hooks/useAuthor";
 import RegisterAuthorForm from "@/features/RegisterAuthorForm";
 
@@ -25,12 +25,15 @@ const style = {
 const AuthorModal = () => {
   const { authorModal, toggleAuthorModal } = useStore();
   const { authorList } = useAuthor();
-  console.log(authorList);
   return (
     authorModal && (
-      <Modal open={authorModal} onClose={() => toggleAuthorModal(false)}>
+      <Modal
+        data-testid="author-modal"
+        open={authorModal}
+        onClose={() => toggleAuthorModal(false)}
+      >
         <Box sx={style}>
-          <MultiSelect authorList={authorList!} />
+          <Selector authorList={authorList!} />
           <RegisterAuthorForm />
         </Box>
       </Modal>

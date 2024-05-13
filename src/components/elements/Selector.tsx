@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { Theme, useTheme } from "@mui/material/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -6,6 +7,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Author } from "@/common/types/types";
+import { useTextList } from "@/common/hooks/useTextList";
+import { useStore } from "@/common/store/store";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -18,19 +21,6 @@ const MenuProps = {
   },
 };
 
-// const names = [
-//   "Oliver Hansen",
-//   "Van Henry",
-//   "April Tucker",
-//   "Ralph Hubbard",
-//   "Omar Alexander",
-//   "Carlos Abbott",
-//   "Miriam Wagner",
-//   "Bradley Wilkerson",
-//   "Virginia Andrews",
-//   "Kelly Snyder",
-// ];
-
 function getStyles(name: string, personName: string[], theme: Theme) {
   return {
     fontWeight:
@@ -40,18 +30,35 @@ function getStyles(name: string, personName: string[], theme: Theme) {
   };
 }
 
-export default function MultiSelect({ authorList }: { authorList: Author[] }) {
+export default function Selector({ authorList }: { authorList: Author[] }) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
+  const { toggleAuthorModal } = useStore();
+  const { listTrigger } = useTextList();
 
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value,
-    );
+    setPersonName(typeof value === "string" ? value.split(",") : value);
+  };
+
+  const createText = async (authorId: number) => {
+    const data = {
+      title: "タイトル",
+      body: "コンテンツ",
+      authorId,
+    };
+    try {
+      await listTrigger(data);
+    } catch (err) {
+      console.log(err);
+      window.alert(
+        "テキストの作成に失敗しました。しばらくしてからもう１度お試しください。",
+      );
+    } finally {
+      toggleAuthorModal(false);
+    }
   };
 
   return (
@@ -61,7 +68,6 @@ export default function MultiSelect({ authorList }: { authorList: Author[] }) {
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
-          multiple
           value={personName}
           onChange={handleChange}
           input={<OutlinedInput label="Name" />}
@@ -72,6 +78,9 @@ export default function MultiSelect({ authorList }: { authorList: Author[] }) {
               key={author.id}
               value={author.name}
               style={getStyles(author.name, personName, theme)}
+              onClick={() => {
+                createText(author.id);
+              }}
             >
               {author.name}
             </MenuItem>
