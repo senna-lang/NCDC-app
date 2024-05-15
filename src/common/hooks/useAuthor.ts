@@ -10,7 +10,7 @@ const getFetcher: Fetcher<Author[]> = async (url: string) => {
 };
 const postFetcher = async (url: string, { arg }: { arg: string }) => {
   const response = await instance.post(url, { author: arg });
-  return response;
+  return response.data;
 };
 
 export const useAuthor = () => {

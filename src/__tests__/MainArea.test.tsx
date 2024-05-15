@@ -1,13 +1,56 @@
 import "@testing-library/jest-dom";
 
 import TextTitle from "@/features/TextTitle";
-import { render, renderHook, screen } from "@testing-library/react";
+import {
+  render,
+  renderHook,
+  screen,
+  act,
+  getByRole,
+} from "@testing-library/react";
 import useEvent from "@testing-library/user-event";
 import TitleEditButton from "@/components/elements/TitleEditButton";
 import TextContent from "@/features/TextContent";
 import ContentEditButton from "@/components/elements/ContentEditButton";
-import useSWR from "swr";
+import { rest } from "msw";
+import { setupServer } from "msw/node";
+import { useTextDetail } from "@/common/hooks/useTextDetail";
+import { SWRConfig } from "swr";
 
+const server = setupServer(
+  rest.get("http://localhost:3001/textDetail/:id", (req, res, ctx) => {
+    const id = Number(req.params.id);
+    return res(
+      ctx.json({
+        title: id,
+        author: {
+          id: 1,
+          name: "msw1",
+        },
+        body: "msw1",
+      }),
+    );
+  }),
+
+  rest.put("http://localhost:3001/updateText/:id", async (req, res, ctx) => {
+    const body = await req.json();
+    const { title, content } = body;
+    return res(
+      ctx.json({
+        title,
+        content,
+      }),
+    );
+  }),
+);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+const Wrapper = ({ children }: { children: any }) => (
+  <SWRConfig value={{ dedupingInterval: 0 }}>{children}</SWRConfig>
+);
 
 describe("MainArea", () => {
   test("TextTitleのレンダリング", () => {
@@ -107,20 +150,11 @@ describe("interactions", () => {
     expect(saveButtonElement).toBeInTheDocument();
     expect(cancelButtonElement).toBeInTheDocument();
   });
- test("textareaへの入力", async () => {
+
+  test("textareaへの入力", async () => {
     render(<TextContent textContent="テスト" />);
     const textareaElement = screen.getByTestId("editing-textarea");
     await user.type(textareaElement, "です。");
     expect(textareaElement).toHaveValue("テストです。");
   });
-
-  // test("セーブボタンをクリックすると編集モードを終了する。", async () => {
-  //   render(<ContentEditButton />);
-  //   render(<TextContent textContent="テストです。" />);
-  //   const saveButtonElement = screen.getByRole("button", {
-  //     name: "Save",
-  //   });
-  //   await user.click(saveButtonElement);
-  //   expect(saveButtonElement).not.toBeInTheDocument();
-  // });
 });

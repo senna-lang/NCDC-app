@@ -38,7 +38,7 @@
     ".next",
     "**/*.test.ts",
     "**/*.test.tsx"
-  ],
+, "jest.polyfills.js"  ],
   "exclude": [
     "node_modules"
   ]
