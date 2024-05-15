@@ -25,6 +25,7 @@ const RegisterAuthorForm = () => {
         label="著者を追加"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
+        data-testid='cy-register-author-input'
       />
       <Button variant="outlined" onClick={() => registerAuthor()}>
         追加

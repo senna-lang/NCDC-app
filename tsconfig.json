@@ -25,7 +25,8 @@
         "./src/*"
       ]
     },
-    "isolatedModules": true
+    "isolatedModules": true,
+    "types": ["cypress", "@testing-library/cypress"]
   },
   "include": [
     "next-env.d.ts",
@@ -37,8 +38,9 @@
     "out",
     ".next",
     "**/*.test.ts",
-    "**/*.test.tsx"
-, "jest.polyfills.js"  ],
+    "**/*.test.tsx",
+    "node_modules/cypress", "./cypress/**/*.js"
+    ],
   "exclude": [
     "node_modules"
   ]

@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import useEvent, { userEvent } from "@testing-library/user-event";
 import SideBar from "../components/layouts/SideBar";
-import SvgrMock from "../mocks/SvgrMock";
+import SvgrMock from "../__mocks__/SvgrMock";
 import EditButton from "../components/elements/SidebarEditButton";
 import TitleCard from "@/features/TitleCard";
 import TextTitle from "@/features/TextTitle";

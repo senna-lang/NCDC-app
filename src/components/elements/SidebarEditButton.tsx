@@ -7,7 +7,7 @@ import EditIcon from "../../../public//icons/edit.svg";
 
 const EditButton = () => {
   const { sidebarEdit, toggleSidebarEdit, toggleAuthorModal } = useStore();
-  
+
   return (
     <div>
       {sidebarEdit ? (
@@ -17,6 +17,7 @@ const EditButton = () => {
             size="lg"
             variant="outline"
             onClick={() => toggleAuthorModal(true)}
+            data-testid='cy-newPage-button'
           >
             <div className=" flex flex-col items-center">
               <AddIcon />
@@ -42,6 +43,7 @@ const EditButton = () => {
             className=" bg-blue-400"
             size="lg"
             onClick={() => toggleSidebarEdit(true)}
+            data-testid="cy-sidebar-edit"
           >
             <div className=" flex flex-col items-center">
               <EditIcon />
