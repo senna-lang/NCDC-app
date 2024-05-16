@@ -1,6 +1,6 @@
 import useSWR, { Fetcher } from "swr";
 import { instance } from "../lib/axiosClient";
-import { Author } from "../types/types";
+import { Author, PatchFetcher, PostFetcher } from "../types/types";
 import useSWRMutation from "swr/mutation";
 import { useCallback } from "react";
 
@@ -10,6 +10,11 @@ const getFetcher: Fetcher<Author[]> = async (url: string) => {
 };
 const postFetcher = async (url: string, { arg }: { arg: string }) => {
   const response = await instance.post(url, { author: arg });
+  return response.data;
+};
+const deleteFetcher: PatchFetcher = async (url, { arg }) => {
+  const addParamUrl = `${url}/${arg}`;
+  const response = await instance.delete(addParamUrl);
   return response.data;
 };
 
@@ -31,6 +36,14 @@ export const useAuthor = () => {
     onSuccess: revalidate,
   });
 
+  const {
+    trigger: deleteTrigger,
+    isMutating: deleteIsMutating,
+    error: deleteError,
+  } = useSWRMutation("deleteAuthor", deleteFetcher, {
+    onSuccess: revalidate,
+  });
+
   return {
     authorList,
     isLoading,
@@ -39,5 +52,8 @@ export const useAuthor = () => {
     registerTrigger,
     isMutating,
     registerError,
+    deleteError,
+    deleteIsMutating,
+    deleteTrigger
   };
 };

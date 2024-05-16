@@ -2,6 +2,7 @@ import React from "react";
 import TextList from "./TextList";
 import EditButton from "../elements/SidebarEditButton";
 import ServiceIcon from "../../../public/icons/logo.svg";
+import AuthorEditButton from "../elements/AuthorEditButton";
 
 const SideBar = () => {
   return (
@@ -13,6 +14,9 @@ const SideBar = () => {
         </div>
       </div>
       <TextList />
+      <div className="w-full p-2 flex flex-col items-end">
+        <AuthorEditButton />
+      </div>
       <div className="w-full p-2">
         <EditButton />
       </div>

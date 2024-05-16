@@ -8,6 +8,7 @@ type State = {
   titleEdit: boolean;
   contentEdit: boolean;
   authorModal: boolean;
+  authorEditModal: boolean;
 };
 
 type Action = {
@@ -18,6 +19,7 @@ type Action = {
   toggleTitleEdit: (titleEdit: State["titleEdit"]) => void;
   toggleContentEdit: (contentEdit: State["contentEdit"]) => void;
   toggleAuthorModal: (contentEdit: State["authorModal"]) => void;
+  toggleAuthorEditModal: (contentEdit: State["authorEditModal"]) => void;
 };
 
 export const useStore = create<Action & State>((set) => ({
@@ -28,6 +30,7 @@ export const useStore = create<Action & State>((set) => ({
   titleEdit: false,
   contentEdit: false,
   authorModal: false,
+  authorEditModal:false,
   updateTextId: (newTextId) => set(() => ({ textId: newTextId })),
   updateTitle: (newTitle) => set(() => ({ title: newTitle })),
   updateContent: (newContent) => set(() => ({ content: newContent })),
@@ -39,4 +42,6 @@ export const useStore = create<Action & State>((set) => ({
     set(() => ({ contentEdit: toggleContentEdit })),
   toggleAuthorModal: (toggleAuthorModal) =>
     set(() => ({ authorModal: toggleAuthorModal })),
+  toggleAuthorEditModal: (toggleAuthorEditModal) =>
+    set(() => ({ authorEditModal: toggleAuthorEditModal })),
 }));

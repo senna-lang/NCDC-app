@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import AuthorModal from "@/components/elements/AuthorModal";
+import AuthorModal from "@/features/AuthorModal";
 import useEvent from "@testing-library/user-event";
 import { render, screen, act } from "@testing-library/react";
 import EditButton from "@/components/elements/SidebarEditButton";
@@ -28,12 +28,10 @@ const server = setupServer(
   }),
   rest.post("http://localhost:3001/createText", (req, res, ctx) => {
     return res(
-      ctx.json(
-        {
-          id: 1,
-          title: "msw1",
-        },
-      ),
+      ctx.json({
+        id: 1,
+        title: "msw1",
+      }),
     );
   }),
 );

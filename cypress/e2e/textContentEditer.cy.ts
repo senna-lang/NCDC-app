@@ -1,6 +1,34 @@
 /// <reference types="cypress" />
 
-describe("add new text content", () => {
+describe("author", () => {
+  beforeEach(() => {
+    cy.visit("/");
+  });
+  it("著者を削除すると紐付いているテキストも削除される", () => {
+    cy.findByTestId("cy-sidebar-edit").click();
+    cy.findByTestId("cy-newPage-button").click();
+    cy.findByTestId("cy-register-author-input").type("米澤穂信");
+    cy.findByRole("button", {
+      name: "追加",
+    }).click();
+    cy.findByRole("combobox").click();
+    cy.findByRole("option", {
+      name: "米澤穂信",
+    }).click();
+    cy.findByRole("button", {
+      name: "著者一覧",
+    }).click();
+    cy.findAllByTestId("cy-author-delete-button").then((elements) => {
+      const firstElement = elements[0];
+      cy.wrap(firstElement).click();
+    });
+    cy.findByRole("button", {
+      name: "米澤穂信",
+    }).should("not.exist");
+  });
+});
+
+describe("text content", () => {
   beforeEach(() => {
     cy.visit("/");
   });
@@ -8,9 +36,9 @@ describe("add new text content", () => {
     cy.findByTestId("cy-sidebar-edit").click();
     cy.findByTestId("cy-newPage-button").click();
     cy.findByTestId("cy-register-author-input").type("鴨長明");
-    // cy.findByRole("button", {
-    //   name: "追加",
-    // }).click();
+    cy.findByRole("button", {
+      name: "追加",
+    }).click();
     cy.findByRole("combobox").click();
     cy.findAllByRole("option", {
       name: "鴨長明",
@@ -52,5 +80,7 @@ describe("add new text content", () => {
     cy.contains("li", "更新").should("not.exist");
   });
 });
+
+
 
 export {};

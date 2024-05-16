@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import AuthorModal from "@/components/elements/AuthorModal";
-
+import AuthorModal from "@/features/AuthorModal";
+import AuthorEditModal from "@/features/AuthorEditModal";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -23,8 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={fontSans.className}>
         {children}
-        <AuthorModal/>
-        </body>
+        <AuthorModal />
+        <AuthorEditModal />
+      </body>
     </html>
   );
 }

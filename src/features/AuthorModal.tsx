@@ -2,7 +2,7 @@
 import { useStore } from "@/common/store/store";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import Selector from "./Selector";
+import Selector from "../components/elements/Selector";
 import { useAuthor } from "@/common/hooks/useAuthor";
 import RegisterAuthorForm from "@/features/RegisterAuthorForm";
 
@@ -33,6 +33,9 @@ const AuthorModal = () => {
         onClose={() => toggleAuthorModal(false)}
       >
         <Box sx={style}>
+          <div className="mb-6 font-semibold">
+            <h1>著者を選択</h1>
+          </div>
           <Selector authorList={authorList!} />
           <RegisterAuthorForm />
         </Box>
