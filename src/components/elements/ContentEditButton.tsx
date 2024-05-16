@@ -52,6 +52,7 @@ const ContentEditButton = () => {
           size="lg"
           className=" bg-blue-400"
           onClick={() => toggleContentEdit(true)}
+          data-testid='cy:content-edit-button'
         >
           <div className=" flex flex-col items-center">
             <EditIcon />

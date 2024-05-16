@@ -10,6 +10,7 @@ const TextTitle = ({ textTitle }: { textTitle: string }) => {
         <input
           type="text"
           className="text-2xl font-bold "
+          data-testid='cy:text-title-input'
           defaultValue={textTitle}
           onChange={(e) => updateTitle(e.target.value)}
         />

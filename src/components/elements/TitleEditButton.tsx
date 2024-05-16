@@ -37,6 +37,7 @@ const TitleEditButton = () => {
             color="blue"
             className=" bg-blue-400"
             onClick={() => handleAppDate()}
+            name="Save"
           >
             <div className=" flex flex-col items-center">
               <SaveIcon />
@@ -61,6 +62,7 @@ const TitleEditButton = () => {
           className=" bg-blue-400"
           size="lg"
           onClick={() => toggleTitleEdit(true)}
+          data-testid="title-edit-button"
         >
           <div className=" flex flex-col items-center">
             <EditIcon />
